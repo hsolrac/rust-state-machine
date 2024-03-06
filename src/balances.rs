@@ -20,3 +20,10 @@ impl Pallet {
     }
 }
 
+#[test]
+fn init_balances() {
+    let mut balances = Pallet::new();
+    assert_eq!(balances.balance("Carlos".to_string()), 0);
+    balances.set_balance("Carlos".to_string(), 10);
+    assert_eq!(balances.balance("Carlos".to_string()), 10);
+}
