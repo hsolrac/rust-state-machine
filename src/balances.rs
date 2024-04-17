@@ -18,6 +18,16 @@ impl Pallet {
     pub fn get_balance(&self, account: String) -> u128 {
         *self.balances.get(&account).unwrap_or(&0)
     }
+
+    pub fn transfer(&mut self, from: String, to: String, amount: u128)-> Result<(), &'static str> {
+        if self.get_balance(from.clone()) < amount {
+            println!("[ERROR] Inssuficient balance");
+        }
+        self.set_balance(from.clone(), self.get_balance(from) - amount);
+        self.set_balance(to.clone(), self.get_balance(to) + amount);
+        
+        Ok(())
+    }
 }
 
 #[test]
@@ -31,4 +41,14 @@ fn set_balance_test() {
 fn get_balance_test(){
     let balances = Pallet::new();
     assert_eq!(balances.get_balance("Carlos".to_string()), 0);
+}
+
+#[test]
+fn transfer_test(){
+    let mut balances = Pallet::new();
+    balances.set_balance("Account1".to_string(), 10);
+    balances.set_balance("Account2".to_string(), 10);
+    balances.transfer("Account1".to_string(), "Account2".to_string(), 5).unwrap();
+
+    assert_eq!(balances.get_balance("Account1".to_string()), 5);
 }
