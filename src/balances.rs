@@ -15,7 +15,7 @@ impl Pallet {
         self.balances.insert(account, amount);
     }
 
-    pub fn balance(&self, account: String) -> u128 {
+    pub fn get_balance(&self, account: String) -> u128 {
         *self.balances.get(&account).unwrap_or(&0)
     }
 }
@@ -23,7 +23,7 @@ impl Pallet {
 #[test]
 fn init_balances() {
     let mut balances = Pallet::new();
-    assert_eq!(balances.balance("Carlos".to_string()), 0);
+    assert_eq!(balances.get_balance("Carlos".to_string()), 0);
     balances.set_balance("Carlos".to_string(), 10);
-    assert_eq!(balances.balance("Carlos".to_string()), 10);
+    assert_eq!(balances.get_balance("Carlos".to_string()), 10);
 }
