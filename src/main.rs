@@ -1,13 +1,21 @@
 mod balances; 
 mod system;
-use balances::Pallet;
+
+pub struct Runtime {
+    balances: balances::Pallet,
+    system: system::Pallet,
+}
+
+impl Runtime {
+    pub fn new() -> Self {
+        Runtime {
+            balances: balances::Pallet::new(),
+            system: system::Pallet::new(),
+        }
+    }
+}
+
 
 fn main() {
-    let mut pallet = Pallet::new(); 
-    pallet.set_balance("Account1".to_string(), 100);
-    pallet.set_balance("Account2".to_string(), 100);
-
-    pallet.transfer("Account1".to_string(), "Account2".to_string(), 50).unwrap();
-    
-    println!("Transfer done!");
+    println!("Done!");
 }
