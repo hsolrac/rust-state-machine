@@ -1,4 +1,5 @@
 mod balances; 
+mod system;
 use balances::Pallet;
 
 fn main() {
@@ -6,7 +7,7 @@ fn main() {
     pallet.set_balance("Account1".to_string(), 100);
     pallet.set_balance("Account2".to_string(), 100);
 
-    pallet.transfer("Account1".to_string(), "Account2".to_string(), 500).unwrap();
+    pallet.transfer("Account1".to_string(), "Account2".to_string(), 50).unwrap();
     
     println!("Transfer done!");
 }

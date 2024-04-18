@@ -21,7 +21,7 @@ impl Pallet {
 
     pub fn transfer(&mut self, from: String, to: String, amount: u128)-> Result<(), &'static str> {
         if self.get_balance(from.clone()) < amount {
-            println!("[ERROR] Inssuficient balance");
+            return Err("Inssuficient balance");
         }
         self.set_balance(from.clone(), self.get_balance(from) - amount);
         self.set_balance(to.clone(), self.get_balance(to) + amount);
@@ -30,25 +30,38 @@ impl Pallet {
     }
 }
 
-#[test]
-fn set_balance_test() {
-    let mut balances = Pallet::new();
-    balances.set_balance("Carlos".to_string(), 10);
-    assert_eq!(balances.get_balance("Carlos".to_string()), 10);
-}
+#[cfg(test)]
+mod test {
 
-#[test]
-fn get_balance_test(){
-    let balances = Pallet::new();
-    assert_eq!(balances.get_balance("Carlos".to_string()), 0);
-}
+    #[test]
+    fn set_balance_test() {
+        let mut balances = super::Pallet::new();
+        balances.set_balance("Account1".to_string(), 10);
+        assert_eq!(balances.get_balance("Account1".to_string()), 10);
+    }
 
-#[test]
-fn transfer_test(){
-    let mut balances = Pallet::new();
-    balances.set_balance("Account1".to_string(), 10);
-    balances.set_balance("Account2".to_string(), 10);
-    balances.transfer("Account1".to_string(), "Account2".to_string(), 5).unwrap();
+    #[test]
+    fn get_balance_test(){
+        let balances = super::Pallet::new();
+        assert_eq!(balances.get_balance("Accoun1".to_string()), 0);
+    }
 
-    assert_eq!(balances.get_balance("Account1".to_string()), 5);
+    #[test]
+    fn transfer_test(){
+        let mut balances = super::Pallet::new();
+        balances.set_balance("Account1".to_string(), 10);
+        balances.set_balance("Account2".to_string(), 10);
+       
+        assert_eq!(balances.transfer("Account1".to_string(), "Account2".to_string(), 5), Ok(()));
+    }
+
+    #[test]
+    fn transfer_insuficient_balance_test(){
+        let mut balances = super::Pallet::new();
+        
+        assert_eq!(
+            balances.transfer("Account1".to_string(), "Account2".to_string(), 5),
+            Err("Inssuficient balance")
+        )
+    }
 }
