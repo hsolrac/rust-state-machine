@@ -1,6 +1,8 @@
 mod balances; 
 mod system;
 
+
+#[derive(Debug)]
 pub struct Runtime {
     balances: balances::Pallet,
     system: system::Pallet,
@@ -38,5 +40,5 @@ fn main() {
         .transfer(account_1.clone(), account_3.clone(), 20)
         .map_err(|e| println!("transfer failed: {:?}", e));
 
-    println!("Done!");
+    println!("{:#?}", runtime);
 }
