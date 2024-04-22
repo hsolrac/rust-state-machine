@@ -1,8 +1,11 @@
 use std::collections::BTreeMap;
 
+type AccountId = String; 
+type Balance = u128;
+
 #[derive(Debug)]
 pub struct Pallet {
-    balances: BTreeMap<String, u128>
+    balances: BTreeMap<AccountId, Balance>
 }
 
 impl Pallet {

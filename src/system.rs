@@ -1,9 +1,13 @@
 use std::collections::BTreeMap;
 
+type AccountId = String; 
+type BlockNumber= u32;
+type Nonce = u32;
+
 #[derive(Debug)]
 pub struct Pallet {
-    block_number: u32, 
-    nonce: BTreeMap<String, u32>,
+    block_number: BlockNumber, 
+    nonce: BTreeMap<AccountId, Nonce>,
 }
 
 impl Pallet {
