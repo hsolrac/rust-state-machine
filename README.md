@@ -6,10 +6,10 @@ I'm following the same concept as the Polkadot SDK.
 
 ### Timeline 
 
-- Tests
+- Tests<br>
 ![Timeline](./images/7f360cbb-b43d-442f-b292-f3e54adc6a3e.png)
 
-- State Machine 
+- State Machine<br>
 ![Timeline](./images/7424f168-53b9-4940-a018-8601b64eef75.png)
 
 ##### Resources
