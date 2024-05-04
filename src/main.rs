@@ -1,10 +1,14 @@
 mod balances; 
 mod system;
 
+mod types {
+    pub type AccountId = String;
+    pub type Balance = u128;
+}
 
 #[derive(Debug)]
 pub struct Runtime {
-    balances: balances::Pallet,
+    balances: balances::Pallet<types::AccountId, types::Balance>,
     system: system::Pallet,
 }
 
@@ -24,7 +28,7 @@ fn main() {
     let account_2 = "account_2".to_string();
     let account_3 = "account_3".to_string();
 
-    runtime.balances.set_balance(account_1.clone(), 100);
+    runtime.balances.set_balance(&account_1.clone(), 100);
 
     // start block
     runtime.system.increment_block_number(); 
